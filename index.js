@@ -1,3 +1,16 @@
+function calculateAverageChange(data) {
+  var changes = [];
+  for (var i = 1; i < data.length; i++) {
+    changes.push(data[i][1] - data[i - 1][1]);
+  }
+
+  if (!changes.length) {
+    return 0;
+  }
+
+  return changes.reduce((acc, curr) => acc + curr) / changes.length;
+}
+
 var finances = [
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
@@ -87,6 +100,10 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
+var averageChange = calculateAverageChange(finances);
+roundedAverageChange = Math.round(averageChange * 100) / 100;
+
+
 //Total Months
 var totalMonths = finances.length
 
@@ -94,9 +111,38 @@ var totalMonths = finances.length
 var numericalValue = finances.map(([, amount]) => amount);
 var totalProfit = numericalValue.reduce((sum, amount) => sum + amount, 0);
 
+//Calculating the biggest increase and decrease
+var greatestIncrease = {
+  month: '',
+  amount: 0,
+};
+var greatestDecrease = {
+  month: '',
+  amount: 0,
+};
+
+for (var i = 1; i < finances.length; i++) {
+  var currentChange = finances[i][1] - finances[i - 1][1];
+  if (currentChange > greatestIncrease.amount) {
+    greatestIncrease = {
+      month: finances[i][0],
+      amount: currentChange,
+    };
+  } if (currentChange < greatestDecrease.amount) {
+    greatestDecrease = {
+      month: finances[i][0],
+      amount: currentChange,
+    };
+  }
+}
+
+
 //Console message
 console.log("Financial Analysis");
 console.log("Total Months: " + totalMonths);
 console.log("Total: $" + totalProfit);
+console.log("Average change: $" + roundedAverageChange);
+console.log("Greatest increase in profits/losses: " + greatestIncrease.month + ", $" + greatestIncrease.amount)
+console.log("Greatest decrease in profits/losses: " + greatestDecrease.month + ", $" + greatestDecrease.amount)
 
 
