@@ -2,7 +2,7 @@
 
 ## Description
 
-The motivation for this project was calculating total months, total profit/loss, average change and greatest increase and decrease, based on data from an array that was a part of the starter code. I
+The motivation for this project was calculating the amount of total months, the total profit/loss, average change and the greatest increase and decrease, based on data from an array that was a part of the starter code I received during a bootcamp.
 
 ## Installation
 
